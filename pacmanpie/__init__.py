@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+"""This module will be the main module to be used for cli."""
 import pyalpm as alpm
 import argparse
 import sys
@@ -22,6 +24,14 @@ under certain conditions.
 
 
 def parse_args(args: List[str] = None) -> argparse.Namespace:
+    """The argument parser. Delegated to a function for testing.
+
+    Args:
+        args (List[str]): The arguments given. Usually comes from sys.argv.
+
+    Returns:
+        argparse.Namespace: The arguments.
+    """
     if args is None:
         args = sys.argv[1:]
     parser.add_argument(
@@ -46,6 +56,14 @@ def parse_args(args: List[str] = None) -> argparse.Namespace:
 
 
 def main(args: List[str] = None):
+    """The main entry point.
+
+    Args:
+        args (List[str]): The arguments given. Usually comes from sys.argv.
+
+    Returns:
+        None: nothing will be returned.
+    """
     if args is None:
         args = sys.argv[1:]
     parsed: argparse.Namespace = parse_args(args)
