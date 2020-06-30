@@ -30,6 +30,18 @@ def parse_args(args: List[str] = None) -> argparse.Namespace:
         action="store_true",
         help="show program's version number and exit"
     )
+    parser.add_argument(
+        "-b",
+        "--dbpath",
+        help="specify an alternative database location",
+        default="/var/lib/pacman"
+    )
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="store_true",
+        help="enable debug output"
+    )
     return parser.parse_args(args)
 
 
