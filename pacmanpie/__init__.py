@@ -9,7 +9,7 @@ from pacmanpie.__version__ import __version__ as version
 import pycman as pacman
 from pacmanpie import levels
 
-parser = argparse.ArgumentParser(
+_parser = argparse.ArgumentParser(
     description="pacman-pie: a pythonic implementation of pacman",
     prog="pacman-pie"
 )
@@ -34,25 +34,25 @@ def parse_args(args: List[str] = None) -> argparse.Namespace:
     """
     if args is None:
         args = sys.argv[1:]
-    parser.add_argument(
+    _parser.add_argument(
         "-V",
         "--version",
         action="store_true",
         help="show program's version number and exit"
     )
-    parser.add_argument(
+    _parser.add_argument(
         "-b",
         "--dbpath",
         help="specify an alternative database location",
         default="/var/lib/pacman"
     )
-    parser.add_argument(
+    _parser.add_argument(
         "-v",
         "--verbose",
         action="store_true",
         help="enable debug output"
     )
-    return parser.parse_args(args)
+    return _parser.parse_args(args)
 
 
 def main(args: List[str] = None):
