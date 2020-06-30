@@ -1,8 +1,7 @@
-from typing import ItemsView, Any, Optional, IO, Text, NoReturn, NamedTuple, Type
+from typing import ItemsView, Any, Optional, IO, Text, NoReturn
 from rich import print
 import argparse
 import sys
-import subprocess
 
 
 class RichArgumentParser(argparse.ArgumentParser):
@@ -28,24 +27,3 @@ def generate_repr(self) -> str:
     class_items: ItemsView[str, Any] = self.__dict__.items()
     return \
         f"<{class_name} object: {' '.join(_generate_variable_expression(name, value) for name, value in class_items if not name.startswith('_'))}>"
-
-
-def get_terminal_size():
-    terminal_size: Type[int, int] = NamedTuple(
-        "TerminalSize",
-        [
-            (
-                "rows",
-                int
-            ),
-            (
-                "columns",
-                int
-            )
-        ]
-    )
-    rows, columns = subprocess.check_output("stty size".split()).split()
-    return terminal_size(
-        rows=int(rows),
-        columns=int(columns)
-    )
