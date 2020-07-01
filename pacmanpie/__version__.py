@@ -60,10 +60,17 @@ class Version:
         Args:
             version: The version number in the format ($MAJOR.$MINOR.$MICRO) or ($MAJOR.$MINOR.$MICRO.$LABEL).
         """
-        self.version = version
-        self._version_split: Tuple[str, ...] = tuple(self.version.split("."))
+        self._version = version
         self._verify_version(self._version_split)
         self._as_data: VersionData = self.as_data
+
+    @property
+    def version(self) -> str:
+        return self._version
+
+    @property
+    def _version_split(self) -> Tuple[str, ...]:
+        return tuple(self._version.split("."))
 
     @staticmethod
     def _verify_version(version_split: Tuple[str, ...]):
@@ -206,6 +213,7 @@ class Version:
         """
         self._as_data.major += 1
         self._as_data.minor = self._as_data.micro = 0
+        self._version = self.version_name
 
     def bump_minor(self):
         """Bumps the minor version part by one.
@@ -222,6 +230,7 @@ class Version:
         """
         self._as_data.minor += 1
         self._as_data.micro = 0
+        self._version = self.version_name
 
     def bump_micro(self):
         """Bumps the micro version part by one.
@@ -237,6 +246,7 @@ class Version:
             '0.1.1'
         """
         self._as_data.micro += 1
+        self._version = self.version_name
 
     def write_to_disk(self, path: str):
         """Writes the version_name to disk.
