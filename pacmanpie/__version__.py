@@ -29,7 +29,7 @@ class VersionData:
         ... label="label"  # optional, can be removed
         ... )
         >>> print(version_data)
-        VersionData(major=0, minor=1, micro=0, label="label")
+        VersionData(major=0, minor=1, micro=0, label='label')
         >>> version_data = VersionData(0, 1, 0)  # with no direct reference and label
         >>> print(version_data)
         VersionData(major=0, minor=1, micro=0, label=None)
@@ -50,6 +50,7 @@ class Version:
         The Version class may be used properly using the following:
 
         >>> Version("0.1.0")  # correct way
+        <Version object: version=0.1.0>
         >>> Version("dcdvcdv")  # incorrect way
         Traceback (most recent call last):
         IndexError: expected 3 values to convert to a version object, got 1
@@ -100,7 +101,7 @@ class Version:
             VersionData(major=0, minor=1, micro=0, label=None)
             >>> version = Version("0.1.0.label")
             >>> version.as_data # with label
-            VersionData(major=0, minor=1, micro=0, label="label")
+            VersionData(major=0, minor=1, micro=0, label='label')
         """
         try:
             major, minor, micro, label = self._version_split
@@ -169,7 +170,7 @@ class Version:
 
             >>> version = Version("0.1.0")
             >>> version.label  # without label
-            None
+            >>> # nothing should appear!
             >>> version = Version("0.1.0.label")
             >>> version.label  # with label
             'label'
@@ -256,17 +257,22 @@ class Version:
 
         Examples:
             >>> import os
-            >>> os.mkdir("temp")  # first, lets make a temp folder
-            >>> os.chdir("temp")  # .. then chdir into that folder.
+            >>> import pathlib
+            >>> import string
+            >>> import random
+            >>> import shutil
+            >>> folder_name = "".join([random.choice(string.ascii_letters) for character in range(8)])
+            >>> os.mkdir(folder_name)  # first, lets make a temp folder
+            >>> os.chdir(folder_name)  # .. then chdir into that folder.
             >>> version = Version("0.1.0")
             >>> version.write_to_disk(".")  # lets write the version name to disk.
             >>> "VERSION" in os.listdir()  # lets check if it exists.
             True
             >>> # it does!
-            >>> with open("VERSION", "r") as file: # .. but is it the right output?
-            ...     print(file.readlines()[0])
-            '0.1.0\n'
+            >>> assert "0.1.0" == pathlib.Path("VERSION").read_text()  # lets now see if its correct.
             >>> # it is!
+            >>> os.chdir("..")
+            >>> shutil.rmtree(folder_name)
         """
         with open(os.path.join(path, "VERSION"), "w") as ver_file:
             ver_file.write(self.version_name)
