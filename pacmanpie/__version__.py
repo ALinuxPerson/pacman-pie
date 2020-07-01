@@ -6,7 +6,6 @@ from typing import (
 )
 from dataclasses import dataclass
 import os
-from pacmanpie import utils
 
 
 @dataclass
