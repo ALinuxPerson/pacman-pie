@@ -177,7 +177,7 @@ class Version:
         return self._as_data.label
 
     @property
-    def version_name(self) -> str:
+    def name(self) -> str:
         """Parses and returns the version name from as_data.
 
         Returns:
@@ -187,10 +187,10 @@ class Version:
             You can get the version name using the following:
 
             >>> version = Version("0.1.0")
-            >>> version.version_name  # without label
+            >>> version.name  # without label
             '0.1.0'
             >>> version = Version("0.1.0.label")
-            >>> version.version_name  # with label
+            >>> version.name  # with label
             '0.1.0.label'
         """
         versions: List[str] = [str(part) for part in self.__iter__()]
@@ -205,15 +205,15 @@ class Version:
             You can bump the major version part using the following:
 
             >>> version = Version("0.1.0")
-            >>> version.version_name  # with the major value not bumped
+            >>> version.name  # with the major value not bumped
             '0.1.0'
             >>> version.bump_major()  # bumped major value
-            >>> version.version_name  # with the major value bumped
+            >>> version.name  # with the major value bumped
             '1.0.0'
         """
         self._as_data.major += 1
         self._as_data.minor = self._as_data.micro = 0
-        self._version = self.version_name
+        self._version = self.name
 
     def bump_minor(self):
         """Bumps the minor version part by one.
@@ -222,15 +222,15 @@ class Version:
             You can bump the minor version part using the following:
 
             >>> version = Version("0.1.0")
-            >>> version.version_name  # with the minor value not bumped
+            >>> version.name  # with the minor value not bumped
             '0.1.0'
             >>> version.bump_minor()  # bumped minor value
-            >>> version.version_name  # with the minor value bumped
+            >>> version.name  # with the minor value bumped
             '0.2.0'
         """
         self._as_data.minor += 1
         self._as_data.micro = 0
-        self._version = self.version_name
+        self._version = self.name
 
     def bump_micro(self):
         """Bumps the micro version part by one.
@@ -239,14 +239,14 @@ class Version:
             You can bump the micro version part using the following:
 
             >>> version = Version("0.1.0")
-            >>> version.version_name  # with the micro value not bumped
+            >>> version.name  # with the micro value not bumped
             '0.1.0'
             >>> version.bump_micro()  # bumped micro value
-            >>> version.version_name  # with the micro value bumped
+            >>> version.name  # with the micro value bumped
             '0.1.1'
         """
         self._as_data.micro += 1
-        self._version = self.version_name
+        self._version = self.name
 
     def write_to_disk(self, path: str):
         """Writes the version_name to disk.
@@ -274,7 +274,7 @@ class Version:
             >>> shutil.rmtree(folder_name)
         """
         with open(os.path.join(path, "VERSION"), "w") as ver_file:
-            ver_file.write(self.version_name)
+            ver_file.write(self.name)
 
     def __iter__(self):
         for version_label in (self.major, self.minor, self.micro, self.label):
@@ -287,4 +287,4 @@ class Version:
 _file: pathlib.Path = pathlib.Path(__file__)
 _version_name: str = pathlib.Path(str(_file.parent.parent.joinpath("VERSION"))).read_text() or "0.1.0"
 _version: Version = Version(_version_name)
-__version__: str = _version.version_name
+__version__: str = _version.name
