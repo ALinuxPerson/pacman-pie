@@ -1,5 +1,5 @@
 import pathlib
-from typing import Tuple, Optional, List
+from typing import Tuple, Optional, List, Iterable, Union
 from dataclasses import dataclass
 import os
 
@@ -58,7 +58,7 @@ class Version:
         Args:
             version: The version number in the format ($MAJOR.$MINOR.$MICRO) or ($MAJOR.$MINOR.$MICRO.$LABEL).
         """
-        self._version = version
+        self._version: str = version
         self._verify_version(self._version_split)
         self._as_data: VersionData = self.as_data
 
@@ -196,7 +196,7 @@ class Version:
             versions.remove("None")
         return ".".join(versions)
 
-    def bump_major(self):
+    def bump_major(self) -> None:
         """Bumps the major version part by one.
 
         Examples:
@@ -213,7 +213,7 @@ class Version:
         self._as_data.minor = self._as_data.micro = 0
         self._version = self.name
 
-    def bump_minor(self):
+    def bump_minor(self) -> None:
         """Bumps the minor version part by one.
 
         Examples:
@@ -230,7 +230,7 @@ class Version:
         self._as_data.micro = 0
         self._version = self.name
 
-    def bump_micro(self):
+    def bump_micro(self) -> None:
         """Bumps the micro version part by one.
 
         Examples:
@@ -269,7 +269,7 @@ class Version:
         with open(os.path.join(path, "VERSION"), "w") as ver_file:
             ver_file.write(self.name)
 
-    def __iter__(self):
+    def __iter__(self) -> Iterable[Union[int, str]]:
         for version_label in (self.major, self.minor, self.micro, self.label):
             yield version_label
 
