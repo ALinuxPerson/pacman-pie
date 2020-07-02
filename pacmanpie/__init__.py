@@ -4,14 +4,10 @@ import pyalpm as libalpm
 import argparse
 import sys
 from typing import List
-from rich import print
 from pacmanpie.__version__ import __version__ as version
-import pycman as pacman
 from pacmanpie import levels
 
-_parser = argparse.ArgumentParser(
-    description="pacman-pie: a pythonic implementation of pacman", prog="pacman-pie"
-)
+
 _version_string: str = f"""pacman-pie version {version}
 pyalpm version {libalpm.version()}
 
@@ -22,48 +18,60 @@ under certain conditions.
         """
 
 
-def parse_args(args: List[str] = None) -> argparse.Namespace:
-    """The argument parser. Converted to a function for testing.
-
-    Args:
-        args: The arguments given. Usually comes from sys.argv.
+def _parser() -> argparse.ArgumentParser:
+    """The argument parser.
 
     Returns:
-        The arguments.
+        Argument parser
     """
-    if args is None:
-        args = sys.argv[1:]
-    _parser.add_argument(
+    parser = argparse.ArgumentParser(
+        description="pacman-pie: a pythonic implementation of pacman", prog="pacman-pie"
+    )
+    parser.add_argument(
         "-V",
         "--version",
         action="store_true",
         help="show program's version number and exit",
     )
-    _parser.add_argument(
+    parser.add_argument(
         "-b",
         "--dbpath",
         help="specify an alternative database location",
         default="/var/lib/pacman",
     )
-    _parser.add_argument(
+    parser.add_argument(
         "-v", "--verbose", action="store_true", help="enable debug output"
     )
-    return _parser.parse_args(args)
+    return parser
 
 
-def main(args: List[str] = None) -> None:
+def _parse_args(
+    parser: argparse.ArgumentParser, args: List[str] = None
+) -> argparse.Namespace:
+    """The parsed arguments. Converted to a function for testing.
+
+    Args:
+        parser: The argument parser.
+        args: The arguments given. Usually comes from sys.argv.
+
+    Returns:
+        The arguments.
+    """
+    return parser.parse_args(args or sys.argv[1:])
+
+
+def main(arguments: List[str] = None) -> None:
     """The main entry point.
 
     Args:
-        args: The arguments given. Usually comes from sys.argv.
+        arguments: The arguments given. Usually comes from sys.argv.
 
     Returns:
         Nothing will be returned.
     """
-    if args is None:
-        args = sys.argv[1:]
-    parsed: argparse.Namespace = parse_args(args)
-    if parsed.version:
+    parser: argparse.ArgumentParser = _parser()
+    args: argparse.Namespace = _parse_args(parser, arguments or sys.argv[1:])
+    if args.version:
         levels.info(_version_string)
 
 
