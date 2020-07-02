@@ -1,9 +1,5 @@
 import pathlib
-from typing import (
-    Tuple,
-    Optional,
-    List
-)
+from typing import Tuple, Optional, List
 from dataclasses import dataclass
 import os
 
@@ -33,6 +29,7 @@ class VersionData:
         >>> print(version_data)
         VersionData(major=0, minor=1, micro=0, label=None)
     """
+
     major: int
     minor: int
     micro: int
@@ -54,6 +51,7 @@ class Version:
         Traceback (most recent call last):
         IndexError: expected 3 values to convert to a version object, got 1
     """
+
     def __init__(self, version: str):
         """The initialization of Version.
 
@@ -255,23 +253,15 @@ class Version:
             path: The path in which to write the version name to.
 
         Examples:
+            >>> import tempfile
             >>> import os
             >>> import pathlib
-            >>> import string
-            >>> import random
-            >>> import shutil
-            >>> folder_name = "".join([random.choice(string.ascii_letters) for character in range(8)])
-            >>> os.mkdir(folder_name)  # first, lets make a temp folder
-            >>> os.chdir(folder_name)  # .. then chdir into that folder.
-            >>> version = Version("0.1.0")
-            >>> version.write_to_disk(".")  # lets write the version name to disk.
-            >>> "VERSION" in os.listdir()  # lets check if it exists.
-            True
-            >>> # it does!
-            >>> assert "0.1.0" == pathlib.Path("VERSION").read_text()  # lets now see if its correct.
-            >>> # it is!
-            >>> os.chdir("..")
-            >>> shutil.rmtree(folder_name)
+            >>> version = Version("0.1.0.label")
+            >>> with tempfile.TemporaryDirectory():
+            ...     version.write_to_disk(".")
+            ...     assert "VERSION" in os.listdir()
+            ...     assert pathlib.Path("VERSION").read_text() == "0.1.0.label"
+            ...     os.remove("VERSION")
         """
         with open(os.path.join(path, "VERSION"), "w") as ver_file:
             ver_file.write(self.name)
@@ -285,6 +275,8 @@ class Version:
 
 
 _file: pathlib.Path = pathlib.Path(__file__)
-_version_name: str = pathlib.Path(str(_file.parent.parent.joinpath("VERSION"))).read_text() or "0.1.0"
+_version_name: str = pathlib.Path(
+    str(_file.parent.parent.joinpath("VERSION"))
+).read_text() or "0.1.0"
 _version: Version = Version(_version_name)
 __version__: str = _version.name
