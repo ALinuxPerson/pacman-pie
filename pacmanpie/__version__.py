@@ -246,11 +246,11 @@ class Version:
         self._as_data.micro += 1
         self._version = self.name
 
-    def write_to_disk(self, path: str):
+    def write_to_disk(self, path: str = "."):
         """Writes the version_name to disk.
 
         Args:
-            path: The path in which to write the version name to.
+            path (str): The path in which to write the version name to. Default is '.'
 
         Examples:
             >>> import tempfile
@@ -262,6 +262,9 @@ class Version:
             ...     assert "VERSION" in os.listdir()
             ...     assert pathlib.Path("VERSION").read_text() == "0.1.0.label"
             ...     os.remove("VERSION")
+
+        Returns:
+            None
         """
         with open(os.path.join(path, "VERSION"), "w") as ver_file:
             ver_file.write(self.name)
