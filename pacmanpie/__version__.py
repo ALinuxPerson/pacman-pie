@@ -52,7 +52,7 @@ class Version:
         IndexError: expected 3 values to convert to a version object, got 1
     """
 
-    def __init__(self, version: str):
+    def __init__(self, version: str) -> None:
         """The initialization of Version.
 
         Args:
@@ -71,7 +71,7 @@ class Version:
         return tuple(self._version.split("."))
 
     @staticmethod
-    def _verify_version(version_split: Tuple[str, ...]):
+    def _verify_version(version_split: Tuple[str, ...]) -> None:
         if len(version_split) > 4 or len(version_split) < 3:
             raise IndexError(
                 f"expected 3 values to convert to a version object, got {len(version_split)}"
@@ -246,11 +246,11 @@ class Version:
         self._as_data.micro += 1
         self._version = self.name
 
-    def write_to_disk(self, path: str = "."):
+    def write_to_disk(self, path: str = ".") -> None:
         """Writes the version_name to disk.
 
         Args:
-            path (str): The path in which to write the version name to. Default is '.'
+            path: The path in which to write the version name to. Default is '.'
 
         Examples:
             >>> import tempfile
