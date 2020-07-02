@@ -26,7 +26,7 @@ def _parser() -> argparse.ArgumentParser:
     Returns:
         Argument parser
     """
-    parser = argparse.ArgumentParser(
+    parser: argparse.ArgumentParser = argparse.ArgumentParser(
         description="pacman-pie: a pythonic implementation of pacman", prog="pacman-pie"
     )
     parser.add_argument(
