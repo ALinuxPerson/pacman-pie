@@ -73,7 +73,3 @@ def main(arguments: List[str] = None) -> None:
     args: argparse.Namespace = _parse_args(parser, arguments or sys.argv[1:])
     if args.version:
         levels.info(_version_string)
-
-
-if __name__ == "__main__":
-    main()
