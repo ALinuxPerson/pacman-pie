@@ -8,14 +8,16 @@ from pacmanpie.__version__ import __version__ as version
 from pacmanpie import levels
 
 
-_version_string: str = f"""pacman-pie version {version}
-pyalpm version {libalpm.version()}
+_version_string: str = f"""pacman-pie {version} - pyalpm {libalpm.version()}
 
-pacman-pie  Copyright (C) 2020  ALinuxPerson
-This program comes with ABSOLUTELY NO WARRANTY;
-This is free software, and you are welcome to redistribute it
-under certain conditions.
-        """
+[bold yellow3] .--.
+[bold yellow3]/ _.-' .-.  .-.  .-. 
+[bold yellow3]\\  '-. '-'  '-'  '-'  
+[bold yellow3] '--'
+
+[italic]This program comes with ABSOLUTELY NO WARRANTY;
+[italic]This is free software, and you are welcome to redistribute it
+[italic]under certain conditions."""
 
 
 def _parser() -> argparse.ArgumentParser:
