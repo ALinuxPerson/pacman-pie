@@ -59,6 +59,9 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "-v", "--verbose", action="store_true", help="enable debug output"
     )
+    parser.add_argument(
+        "--support", help="give debug information, then exit", action="store_true"
+    )
     return parser
 
 
