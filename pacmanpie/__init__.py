@@ -69,6 +69,19 @@ def _parser() -> argparse.ArgumentParser:
     root.add_argument(
         "--disable-timeout", help="disables the download timeout", action="store_true"
     )
+
+    transcation: argparse.ArgumentParser = argparse.ArgumentParser(add_help=False)
+    transcation.add_argument(
+        "-d", "--no-deps", help="skip dependency version checks", action="store_true",
+    )
+    transcation.add_argument(
+        "--assume-installed",
+        help="add fake package 'package' with version 'version'. format is $PACKAGE=$VERSION",
+    )
+    transcation.add_argument(
+        "--dbonly", action="store_true", help="adds/removes the database entry only"
+    )
+
     database: argparse.ArgumentParser = subparser.add_parser(
         name="database",
         description="operate on the package database",
@@ -83,9 +96,13 @@ def _parser() -> argparse.ArgumentParser:
         name="remove",
         description="remove package(s) from the system",
         help="remove package(s) from the system",
+        parents=[transcation],
     )
     sync: argparse.ArgumentParser = subparser.add_parser(
-        name="sync", description="synchronize packages", help="synchronize packages"
+        name="sync",
+        description="synchronize packages",
+        help="synchronize packages",
+        parents=[transcation],
     )
     deptest: argparse.ArgumentParser = subparser.add_parser(
         name="deptest", description="check dependencies", help="check dependencies"
@@ -94,6 +111,7 @@ def _parser() -> argparse.ArgumentParser:
         name="upgrade",
         description="upgrade or add package(s) to the system",
         help="upgrade or add package(s) to the system",
+        parents=[transcation],
     )
     files: argparse.ArgumentParser = subparser.add_parser(
         name="files",
