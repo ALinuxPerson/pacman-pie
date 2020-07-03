@@ -41,32 +41,32 @@ def _parser() -> argparse.ArgumentParser:
     Returns:
         Argument parser
     """
-    parser: argparse.ArgumentParser = argparse.ArgumentParser(
+    root: argparse.ArgumentParser = argparse.ArgumentParser(
         description="pacman-pie: a pythonic implementation of pacman", prog="pacman-pie"
     )
-    subparser = parser.add_subparsers(prog="operations")
-    parser.add_argument(
+    subparser = root.add_subparsers(prog="operations")
+    root.add_argument(
         "-V",
         "--version",
         action="store_true",
         help="show program's version number and exit",
     )
-    parser.add_argument(
+    root.add_argument(
         "--config", help="specify an alternate config file"
     )  # TODO: implement config files, all alternative locations will be stored here
-    parser.add_argument(
+    root.add_argument(
         "-v", "--verbose", action="store_true", help="enable debug output"
     )
-    parser.add_argument(
+    root.add_argument(
         "--support", help="give debug information, then exit", action="store_true"
     )
-    parser.add_argument(
+    root.add_argument(
         "--no-confirm",
         help="bypass question messages, will automatically be true",
         action="store_true",
     )
-    parser.add_argument("--confirm", help="override --no-confirm", action="store_true")
-    parser.add_argument(
+    root.add_argument("--confirm", help="override --no-confirm", action="store_true")
+    root.add_argument(
         "--disable-timeout", help="disables the download timeout", action="store_true"
     )
     database: argparse.ArgumentParser = subparser.add_parser(
@@ -100,7 +100,7 @@ def _parser() -> argparse.ArgumentParser:
         description="query the files database",
         help="query the files database",
     )
-    return parser
+    return root
 
 
 def _parse_args(
