@@ -70,7 +70,9 @@ def _parser() -> argparse.ArgumentParser:
         "--disable-timeout", help="disables the download timeout", action="store_true"
     )
     database: argparse.ArgumentParser = subparser.add_parser(
-        name="database", description="operate on the package database"
+        name="database",
+        description="operate on the package database",
+        help="operate on the package database",
     )
     return parser
 
