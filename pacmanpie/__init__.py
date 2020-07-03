@@ -64,6 +64,7 @@ def _parser() -> argparse.ArgumentParser:
         help="bypass question messages, will automatically be true",
         action="store_true",
     )
+    parser.add_argument("--confirm", help="override --no-confirm", action="store_true")
     return parser
 
 
