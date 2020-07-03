@@ -74,6 +74,11 @@ def _parser() -> argparse.ArgumentParser:
         description="operate on the package database",
         help="operate on the package database",
     )
+    query: argparse.ArgumentParser = subparser.add_parser(
+        name="database",
+        description="query the package database",
+        help="query the package database",
+    )
     return parser
 
 
