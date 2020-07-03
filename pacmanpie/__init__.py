@@ -44,6 +44,7 @@ def _parser() -> argparse.ArgumentParser:
     parser: argparse.ArgumentParser = argparse.ArgumentParser(
         description="pacman-pie: a pythonic implementation of pacman", prog="pacman-pie"
     )
+    subparser = parser.add_subparsers(prog="operations")
     parser.add_argument(
         "-V",
         "--version",
@@ -67,6 +68,9 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--confirm", help="override --no-confirm", action="store_true")
     parser.add_argument(
         "--disable-timeout", help="disables the download timeout", action="store_true"
+    )
+    database: argparse.ArgumentParser = subparser.add_parser(
+        name="database", description="operate on the package database"
     )
     return parser
 
