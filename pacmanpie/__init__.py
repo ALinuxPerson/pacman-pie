@@ -57,6 +57,9 @@ def _parser() -> argparse.ArgumentParser:
         default="/var/lib/pacman",
     )
     parser.add_argument(
+        "--config", help="specify an alternate config file"
+    )  # TODO: implement config files, all alternative locations will be stored here
+    parser.add_argument(
         "-v", "--verbose", action="store_true", help="enable debug output"
     )
     parser.add_argument(
