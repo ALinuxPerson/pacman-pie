@@ -87,6 +87,19 @@ def _parser() -> argparse.ArgumentParser:
     sync: argparse.ArgumentParser = subparser.add_parser(
         name="sync", description="synchronize packages", help="synchronize packages"
     )
+    deptest: argparse.ArgumentParser = subparser.add_parser(
+        name="deptest", description="check dependencies", help="check dependencies"
+    )
+    upgrade: argparse.ArgumentParser = subparser.add_parser(
+        name="upgrade",
+        description="upgrade or add package(s) to the system",
+        help="upgrade or add package(s) to the system",
+    )
+    files: argparse.ArgumentParser = subparser.add_parser(
+        name="files",
+        description="query the files database",
+        help="query the files database",
+    )
     return parser
 
 
