@@ -51,12 +51,6 @@ def _parser() -> argparse.ArgumentParser:
         help="show program's version number and exit",
     )
     parser.add_argument(
-        "-b",
-        "--dbpath",
-        help="specify an alternative database location",
-        default="/var/lib/pacman",
-    )
-    parser.add_argument(
         "--config", help="specify an alternate config file"
     )  # TODO: implement config files, all alternative locations will be stored here
     parser.add_argument(
