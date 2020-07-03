@@ -32,7 +32,7 @@ Usage
 ..
     TODO: Convert the stdout of ``sudo ppacman install packages vim`` to asciicinema stuff
 
-* Installing packages
+* Installing packages (note: concept only)
 
 .. code-block:: bash
 
