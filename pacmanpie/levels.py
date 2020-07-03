@@ -20,24 +20,24 @@ import sys
 _console: Console = Console(file=sys.stderr)
 
 
-def info(message: str):
+def info(message: str, no_icon: bool = False):
     for line in message.splitlines():
-        _console.print(f" [dark_blue][[🛈]] [blue]{line}")
+        _console.print(f" [dark_blue]{'' if no_icon else '[[🛈]]'} [blue]{line}")
 
 
-def success(message: str):
+def success(message: str, no_icon: bool = False):
     for line in message.splitlines():
-        _console.print(f" [dark_green][[✓]] [green4]{line}")
+        _console.print(f" [dark_green]{'' if no_icon else '[[✓]]'} [green4]{line}")
 
 
-def warn(message: str):
+def warn(message: str, no_icon: bool = False):
     for line in message.splitlines():
-        _console.print(f" [yellow][[⚠]] [yellow3]{line}")
+        _console.print(f" [yellow]{'' if no_icon else '[[⚠]]'} [yellow3]{line}")
 
 
-def error(message: str):
+def error(message: str, no_icon: bool = False):
     for line in message.splitlines():
-        _console.print(f" [dark_red][[✗]] [red]{line}")
+        _console.print(f" [dark_red]{'' if no_icon else '[[✗]]'} [red]{line}")
 
 
 def debug(message: str):
