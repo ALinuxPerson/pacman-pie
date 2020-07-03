@@ -1,7 +1,3 @@
-.. image:: https://github.com/ALinuxPerson/pacman-pie/blob/readme-md/other/logo.png
-    :alt: Logo
-    :align: center
-
 Description
 ===========
 **pacman-pie** is a pythonic implementation of **pyalpm**.
