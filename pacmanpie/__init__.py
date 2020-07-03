@@ -79,6 +79,11 @@ def _parser() -> argparse.ArgumentParser:
         description="query the package database",
         help="query the package database",
     )
+    remove: argparse.ArgumentParser = subparser.add_parser(
+        name="remove",
+        description="remove package(s) from the system",
+        help="remove package(s) from the system",
+    )
     return parser
 
 
