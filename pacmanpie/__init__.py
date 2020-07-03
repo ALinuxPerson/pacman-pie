@@ -59,6 +59,11 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--support", help="give debug information, then exit", action="store_true"
     )
+    parser.add_argument(
+        "--no-confirm",
+        help="bypass question messages, will automatically be true",
+        action="store_true",
+    )
     return parser
 
 
