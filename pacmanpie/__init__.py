@@ -84,6 +84,9 @@ def _parser() -> argparse.ArgumentParser:
         description="remove package(s) from the system",
         help="remove package(s) from the system",
     )
+    sync: argparse.ArgumentParser = subparser.add_parser(
+        name="sync", description="synchronize packages", help="synchronize packages"
+    )
     return parser
 
 
