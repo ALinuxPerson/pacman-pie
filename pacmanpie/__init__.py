@@ -65,6 +65,9 @@ def _parser() -> argparse.ArgumentParser:
         action="store_true",
     )
     parser.add_argument("--confirm", help="override --no-confirm", action="store_true")
+    parser.add_argument(
+        "--disable-timeout", help="disables the download timeout", action="store_true"
+    )
     return parser
 
 
